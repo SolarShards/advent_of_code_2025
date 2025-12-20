@@ -2,6 +2,7 @@ import importlib
 import argparse
 import time
 from typing import Callable
+from multiprocessing import freeze_support
 
 
 def profile(function: Callable, *args):
@@ -33,14 +34,17 @@ def execute_day(day: int):
     print("-----------------------------------------------------")
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "-d", "--day", type=int, help="Executes only this day if given"
-)
-args = parser.parse_args()
+if __name__ == "__main__":
+    freeze_support()
 
-if args.day:
-    execute_day(args.day)
-else:
-    for day in range(1, 13):
-        execute_day(day)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-d", "--day", type=int, help="Executes only this day if given"
+    )
+    args = parser.parse_args()
+
+    if args.day:
+        execute_day(args.day)
+    else:
+        for day in range(1, 13):
+            execute_day(day)
